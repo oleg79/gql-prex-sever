@@ -4,17 +4,17 @@ const typeDefs = gql`
     type School {
         id: ID!
         name: String!
-        groups: [Group]!
-        teachers: [Teacher]!
-        students: [Student]!
+        groups(name: String): [Group]!
+        teachers(username: String, firstName: String, lastName: String): [Teacher]!
+        students(username: String, firstName: String, lastName: String): [Student]!
     }
 
     type Group {
         id: ID!
         name: String!
         school: School!
-        teachers: [Teacher]!
-        students: [Student]!
+        teachers(username: String, firstName: String, lastName: String): [Teacher]!
+        students(username: String, firstName: String, lastName: String): [Student]!
     }
 
     type Teacher {
@@ -22,9 +22,9 @@ const typeDefs = gql`
         username: String!
         firstName: String
         lastName: String
-        students: [Student]!
-        groups: [Group]!
-        schools: [School]!
+        students(username: String, firstName: String, lastName: String): [Student]!
+        groups(name: String): [Group]!
+        schools(name: String): [School]!
     }
 
     type Student {
@@ -32,8 +32,8 @@ const typeDefs = gql`
         username: String!
         firstName: String
         lastName: String
-        teachers: [Teacher]!
-        groups: [Group]!
+        teachers(username: String, firstName: String, lastName: String): [Teacher]!
+        groups(name: String): [Group]!
         school: School!
     }
 

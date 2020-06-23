@@ -5,6 +5,9 @@ const {
   students
 } = require('./data');
 
+const applyFilters = (items, filters) => Object.entries(filters)
+  .reduce((data, [field, value]) => data.filter(d => value ? d[field].includes(value) : true), items)
+
 const resolvers = {
   Query: {
     schools: () => schools,
@@ -21,22 +24,23 @@ const resolvers = {
   },
 
   School: {
-    groups: ({id}) => groups.filter(g => g.schoolId === id),
+    groups: ({id}, filters) => applyFilters(groups
+      .filter(g => g.schoolId === id), filters),
 
-    teachers: ({id}) => {
+    teachers: ({id}, filters) => {
       const _groups = groups.filter(g => g.schoolId === id);
 
-      return [...new Set(_groups.flatMap(
+      return  applyFilters([...new Set(_groups.flatMap(
         g => teachers.filter(t => g.teacherIds.includes(t.id))
-      ))];
+      ))], filters);
     },
 
-    students: ({id}) => {
+    students: ({id}, filters) => {
       const _groups = groups.filter(g => g.schoolId === id);
 
-      return [...new Set(_groups.flatMap(
+      return applyFilters([...new Set(_groups.flatMap(
         g => students.filter(s => g.studentIds.includes(s.id))
-      ))]
+      ))], filters);
     },
   },
 
@@ -47,16 +51,16 @@ const resolvers = {
       return schools.find(s => s.id = schoolId);
     },
 
-    teachers: ({id}) => {
+    teachers: ({id}, filters) => {
       const {teacherIds} = groups.find(g => g.id === id);
 
-      return teachers.filter(t => teacherIds.includes(t.id));
+      return applyFilters(teachers.filter(t => teacherIds.includes(t.id)), filters);
     },
 
-    students: ({id}) => {
+    students: ({id}, filters) => {
       const {studentIds} = groups.find(g => g.id === id);
 
-      return students.filter(s => studentIds.includes(s.id));
+      return applyFilters(students.filter(s => studentIds.includes(s.id)), filters);
     }
   },
 
@@ -69,10 +73,10 @@ const resolvers = {
       return schools.filter(s => schoolIds.includes(s.id));
     },
 
-    students: ({id}) => {
+    students: ({id}, filters) => {
       const studentIds = [...new Set(groups.filter(g => g.teacherIds.includes(id)).flatMap(g => g.studentIds))]
 
-      return students.filter(s => studentIds.includes(s.id));
+      return applyFilters(students.filter(s => studentIds.includes(s.id)), filters);
     }
   },
 
@@ -83,12 +87,12 @@ const resolvers = {
       return schools.find(s => s.id === schoolId);
     },
 
-    groups: ({id}) => groups.filter(g => g.studentIds.includes(id)),
+    groups: ({id}, filters) => applyFilters(groups.filter(g => g.studentIds.includes(id)), filters),
 
-    teachers: ({id}) => {
+    teachers: ({id}, filters) => {
       const teachersIds = [...new Set(groups.filter(g => g.studentIds.includes(id)).flatMap(g => g.teacherIds))]
 
-      return teachers.filter(t => teachersIds.includes(t.id));
+      return applyFilters(teachers.filter(t => teachersIds.includes(t.id)), filters);
     }
   }
 };

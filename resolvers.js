@@ -6,20 +6,20 @@ const {
 } = require('./data');
 
 const applyFilters = (items, filters) => Object.entries(filters)
-  .reduce((data, [field, value]) => data.filter(d => value ? d[field].includes(value) : true), items)
+  .reduce((data, [field, value]) => data.filter(d => value ? d[field].includes(value) : true), items).filter(x => x)
 
 const resolvers = {
   Query: {
-    schools: () => schools,
+    schools: (_, filters) => applyFilters(schools, filters),
     school: (_, {id}) => schools.find(s => s.id === id),
 
-    groups: () => groups,
+    groups: (_, filters) => applyFilters(groups, filters),
     group: (_, {id}) => groups.find(g => g.id === id),
 
-    teachers: () => teachers,
+    teachers: (_, filters) => applyFilters(teachers, filters),
     teacher: (_, {id}) => teachers.find(t => t.id === id),
 
-    students: () => students,
+    students: (_, filters) => applyFilters(students, filters),
     student: (_, {id}) => students.find(s => s.id === id),
   },
 

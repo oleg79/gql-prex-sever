@@ -38,13 +38,13 @@ const typeDefs = gql`
     }
 
     type Query {
-        schools: [School]
+        schools(name: String): [School]
         school(id: ID!): School
-        groups: [Group]
+        groups(name: String): [Group]
         group(id: ID!): Group
-        teachers: [Teacher]
+        teachers(username: String, firstName: String, lastName: String): [Teacher]
         teacher(id: ID!): Teacher
-        students: [Student]
+        students(username: String, firstName: String, lastName: String): [Student]
         student(id: ID!): Student
     }
 `;

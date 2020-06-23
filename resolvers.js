@@ -17,7 +17,7 @@ const resolvers = {
     teacher: (_, {id}) => teachers.find(t => t.id === id),
 
     students: () => students,
-    student: (_, {id}) => student.find(s => s.id === id),
+    student: (_, {id}) => students.find(s => s.id === id),
   },
 
   School: {

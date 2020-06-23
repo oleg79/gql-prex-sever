@@ -20,22 +20,22 @@ const groups = [
 ]
 
 const teachers = [
-  {id: 1, username: 'teacher-1',},
-  {id: 2, username: 'teacher-2',},
-  {id: 3, username: 'teacher-3',},
-  {id: 4, username: 'teacher-4',},
+  {id: 1, username: 'teacher-1', firstName: 'Oliver', lastName: 'Smith'},
+  {id: 2, username: 'teacher-2', firstName: 'Harry', lastName: 'Johnson'},
+  {id: 3, username: 'teacher-3', firstName: 'Olivia', lastName: 'Williams'},
+  {id: 4, username: 'teacher-4', firstName: 'Noah', lastName: 'Jones'},
 ]
 
 const students = [
-  {id: 1, username: 'student-1',},
-  {id: 2, username: 'student-2',},
-  {id: 3, username: 'student-3',},
-  {id: 4, username: 'student-4',},
-  {id: 5, username: 'student-5',},
-  {id: 6, username: 'student-6',},
-  {id: 7, username: 'student-7',},
-  {id: 8, username: 'student-8',},
-  {id: 9, username: 'student-9',},
+  {id: 1, username: 'student-1', firstName: 'Oscar', lastName: 'Brown'},
+  {id: 2, username: 'student-2', firstName: 'Ava', lastName: 'Davis'},
+  {id: 3, username: 'student-3', firstName: 'Charlie', lastName: 'Miller'},
+  {id: 4, username: 'student-4', firstName: 'Isabella', lastName: 'Wilson'},
+  {id: 5, username: 'student-5', firstName: 'Muhammad', lastName: 'Moore'},
+  {id: 6, username: 'student-6', firstName: 'Leo', lastName: 'Taylor'},
+  {id: 7, username: 'student-7', firstName: 'Jacob', lastName: 'Anderson'},
+  {id: 8, username: 'student-8', firstName: 'Jack', lastName: 'Thomas'},
+  {id: 9, username: 'student-9', firstName: 'Ella', lastName: 'Jackson'},
 ]
 
 module.exports = {
